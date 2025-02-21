@@ -1,0 +1,129 @@
+{
+	"name": "chat-sample",
+	"publisher": "vscode-samples",
+	"displayName": "Copilot Chat Sample",
+	"description": "Sample chat extension, a trusty cat tutor that will can teach you computer science topics.",
+	"version": "0.1.0",
+	"engines": {
+		"vscode": "^1.95.0"
+	},
+	"categories": [
+		"AI",
+		"Programming Languages"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"contributes": {
+		"languageModelTools": [
+			{
+				"name": "edit-tools-migration-guideline",
+				"tags": [
+					"editors",
+					"chat-tools-sample",
+					"vscode_editing"
+				],
+				"toolReferenceName": "edit-tools-migration-guideline",
+				"displayName": "Migration Guideline",
+				"modelDescription": "The migration guideline tool provides step by step guideline on how to migrate from one resource type to another azure resource.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"migrateScenario": {
+							"type": "string",
+							"description": "The migration scenario, normally it like 'migration from <resource type> to <resource type>'",
+							"default": 0
+						},
+						"from": {
+							"type": "string",
+							"description": "The resource type the user is migrating from",
+							"default": 0
+						},
+						"to": {
+							"type": "string",
+							"description": "The resource type the user want to migrating to",
+							"default": 0
+						}
+					}
+				}
+			},
+			{
+				"name": "chat-tools-sample_findFiles",
+				"tags": [
+					"files",
+					"search",
+					"chat-tools-sample",
+					"vscode_editing"
+				],
+				"displayName": "Find Files",
+				"modelDescription": "Search for files in the current workspace",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"pattern": {
+							"type": "string",
+							"description": "Search for files that match this glob pattern"
+						}
+					},
+					"required": [
+						"pattern"
+					]
+				}
+			},
+			{
+				"name": "chat-tools-sample_runInTerminal",
+				"tags": [
+					"terminal",
+					"chat-tools-sample",
+					"vscode_editing"
+				],
+				"displayName": "Run in Terminal",
+				"modelDescription": "Run a command in a terminal and return the output",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"command": {
+							"type": "string",
+							"description": "The command to run"
+						}
+					},
+					"required": [
+						"command"
+					]
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "cat.namesInEditor",
+				"title": "Use Cat Names in Editor"
+			}
+		]
+	},
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint",
+		"watch": "tsc -watch -p ./"
+	},
+	"dependencies": {
+		"@vscode/chat-extension-utils": "^0.0.0-alpha.1",
+		"@vscode/prompt-tsx": "^0.3.0-alpha.12"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.13.0",
+		"@stylistic/eslint-plugin": "^2.9.0",
+		"@types/node": "^20",
+		"@types/vscode": "^1.95.0",
+		"eslint": "^9.13.0",
+		"typescript": "^5.7.2",
+		"typescript-eslint": "^8.16.0"
+	},
+	"extensionDependencies": [
+		"Github.copilot-chat"
+	],
+	"enabledApiProposals": [
+		"chatParticipantPrivate"
+	]
+}
