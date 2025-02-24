@@ -1,8 +1,8 @@
 {
-	"name": "chat-sample",
-	"publisher": "vscode-samples",
-	"displayName": "Copilot Chat Sample",
-	"description": "Sample chat extension, a trusty cat tutor that will can teach you computer science topics.",
+	"name": "java-migrate-tools",
+	"publisher": "java-migrate-tools",
+	"displayName": "Java Migration tools",
+	"description": "Java Migration Tools",
 	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.95.0"
@@ -11,92 +11,83 @@
 		"AI",
 		"Programming Languages"
 	],
-	"activationEvents": [
-		"*"
-	],
+	"activationEvents": ["*"],
 	"contributes": {
+		"chatParticipants": [
+			{
+				"id": "migration-agent",
+				"fullName": "Migration Agent",
+				"name": "migration-agent",
+				"description": "Java Migration Agent",
+				"isSticky": true,
+				"commands": [
+					{
+						"name": "list",
+						"description": "List all available tools"
+					}
+				]
+			}
+		],
 		"languageModelTools": [
 			{
-				"name": "edit-tools-migration-guideline",
+				"name": "migration-guideline",
 				"tags": [
 					"editors",
-					"chat-tools-sample",
 					"vscode_editing"
 				],
-				"toolReferenceName": "edit-tools-migration-guideline",
+				"toolReferenceName": "migration-guideline",
 				"displayName": "Migration Guideline",
-				"modelDescription": "The migration guideline tool provides step by step guideline on how to migrate from one resource type to another azure resource.",
+				"modelDescription": "The migration guideline tool provides step by step guideline on how to migrate from one resource type to another azure resource. When user is try to start migration, call this function first to get the guideline.",
 				"inputSchema": {
 					"type": "object",
 					"properties": {
 						"migrateScenario": {
 							"type": "string",
 							"description": "The migration scenario, normally it like 'migration from <resource type> to <resource type>'",
-							"default": 0
+							"default": ""
 						},
 						"from": {
 							"type": "string",
 							"description": "The resource type the user is migrating from",
-							"default": 0
+							"default": ""
 						},
 						"to": {
 							"type": "string",
 							"description": "The resource type the user want to migrating to",
-							"default": 0
+							"default": ""
 						}
 					}
 				}
 			},
 			{
-				"name": "chat-tools-sample_findFiles",
+				"name": "migrate-file-edit-knowledge",
 				"tags": [
-					"files",
-					"search",
-					"chat-tools-sample",
+					"editors",
 					"vscode_editing"
 				],
-				"displayName": "Find Files",
-				"modelDescription": "Search for files in the current workspace",
+				"toolReferenceName": "migrate-file-edit-knowledge",
+				"displayName": "Migration knowledge",
+				"modelDescription": "During migration, after you get a code snippet that needs to be changed by searching or reading, call this function to gain knowledge of the migration code change according to the code snippet",
 				"inputSchema": {
 					"type": "object",
 					"properties": {
-						"pattern": {
+						"filepath": {
 							"type": "string",
-							"description": "Search for files that match this glob pattern"
-						}
-					},
-					"required": [
-						"pattern"
-					]
-				}
-			},
-			{
-				"name": "chat-tools-sample_runInTerminal",
-				"tags": [
-					"terminal",
-					"chat-tools-sample",
-					"vscode_editing"
-				],
-				"displayName": "Run in Terminal",
-				"modelDescription": "Run a command in a terminal and return the output",
-				"inputSchema": {
-					"type": "object",
-					"properties": {
-						"command": {
+							"description": "The file path of the code snippet that needs to be changed",
+							"default": ""
+						},
+						"migrationScenario": {
 							"type": "string",
-							"description": "The command to run"
+							"description": "The migration scenario, normally it like 'migration from <resource type> to <resource type>'",
+							"default": ""
+						},
+						"codeSummary": {
+							"type": "string",
+							"description": "The code summary of the file related with the migration scenario",
+							"default": ""
 						}
-					},
-					"required": [
-						"command"
-					]
+					}
 				}
-			}
-		],
-		"commands": [
-			{
-				"command": "cat.namesInEditor",
-				"title": "Use Cat Names in Editor"
 			}
 		]
 	},
